@@ -1,2 +1,15 @@
 # Project_2_Team_3
 Covid Tracker
+
+API 1:
+  Output location status:
+    - get covid info from https://disease.sh/
+    - convert info into a score using algorithm
+    - save score in DB
+    
+API 2:
+  Location search:
+    - Use google maps to get a location
+      - parse google map location info into something API 1 can use
+    - use API 1 to get that location's score
+    - Output location and all relevant info
