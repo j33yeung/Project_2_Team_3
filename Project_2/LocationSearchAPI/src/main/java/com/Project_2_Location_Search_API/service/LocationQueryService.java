@@ -1,7 +1,7 @@
-package com.project2.LocationSearchAPI.service;
+package com.Project_2_Location_Search_API.service;
 
-import com.project2.LocationSearchAPI.entities.LocationQuery;
-import com.project2.LocationSearchAPI.repositories.LocationQueryRepository;
+import com.Project_2_Location_Search_API.entities.LocationQuery;
+import com.Project_2_Location_Search_API.repositories.LocationQueryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

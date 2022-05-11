@@ -1,4 +1,4 @@
-package com.project2.LocationSearchAPI.entities;
+package com.Project_2_Location_Search_API.entities;
 
 import lombok.*;
 

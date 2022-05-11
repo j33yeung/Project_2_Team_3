@@ -1,17 +1,12 @@
-package com.project2.LocationSearchAPI.controllers;
+package com.Project_2_Location_Search_API.controllers;
 
-import com.project2.LocationSearchAPI.entities.LocationQuery;
-import com.project2.LocationSearchAPI.service.LocationQueryService;
+import com.Project_2_Location_Search_API.entities.LocationQuery;
+import com.Project_2_Location_Search_API.service.LocationQueryService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/search")

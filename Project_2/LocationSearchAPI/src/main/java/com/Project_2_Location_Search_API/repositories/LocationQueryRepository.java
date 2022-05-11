@@ -1,6 +1,6 @@
-package com.project2.LocationSearchAPI.repositories;
+package com.Project_2_Location_Search_API.repositories;
 
-import com.project2.LocationSearchAPI.entities.LocationQuery;
+import com.Project_2_Location_Search_API.entities.LocationQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
