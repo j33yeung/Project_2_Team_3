@@ -15,10 +15,11 @@ import javax.persistence.*;
 public class LocationQuery {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", columnDefinition = "AUTO_INCREMENT")
     private int queryID;
 
-    @Column(name = "locationName")
+    @Column(name = "location_name")
     private String locationName;
 
     @Column(name = "status")
@@ -30,12 +31,12 @@ public class LocationQuery {
     @Column(name = "vaccinated")
     private int vaccinated;
 
-    @Column(name = "totalInfections")
+    @Column(name = "total_infections")
     private int totalInfections;
 
-    @Column(name = "totalDeaths")
+    @Column(name = "total_deaths")
     private int totalDeaths;
 
-    @Column(name = "totalRecovered")
+    @Column(name = "total_recovered")
     private int totalRecovered;
 }
