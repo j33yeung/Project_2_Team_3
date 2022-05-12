@@ -10,18 +10,25 @@ import java.util.List;
 
 @Repository
 public interface LocationQueryRepository extends JpaRepository<LocationQuery, Integer> {
-    @Query("FROM LocationQuery WHERE locationName = :locationName")
-    List<LocationQuery> findAllByLocationName(@Param("locationName") String locationName);
+
+    @Query("FROM LocationQuery WHERE locationName = :location_name")
+    List<LocationQuery> findAllByLocationName(@Param("location_name") String locationName);
+
     @Query("FROM LocationQuery WHERE status = :status")
     List<LocationQuery> findAllByStatus(@Param("status") String status);
+
     @Query("FROM LocationQuery WHERE population >= :population")
     List<LocationQuery> findAllByPopulation(@Param("population") int population);
+
     @Query("FROM LocationQuery WHERE vaccinated >= :vaccinated")
     List<LocationQuery> findAllByVaccinatedPopulation(@Param("vaccinated") int vaccinated);
-    @Query("FROM LocationQuery WHERE totalInfections >= :totalInfections")
-    List<LocationQuery> findAllByNumInfections(@Param("totalInfections") int totalInfections);
-    @Query("FROM LocationQuery WHERE totalDeaths >= :totalDeaths")
-    List<LocationQuery> findAllByTotalDeaths(@Param("totalDeaths") int totalDeaths);
-    @Query("FROM LocationQuery WHERE totalRecovered >= :totalRecovered")
-    List<LocationQuery> findAllByTotalRecovered(@Param("totalRecovered") int totalRecovered);
+
+    @Query("FROM LocationQuery WHERE totalInfections >= :total_infections")
+    List<LocationQuery> findAllByNumInfections(@Param("total_infections") int totalInfections);
+
+    @Query("FROM LocationQuery WHERE totalDeaths >= :total_deaths")
+    List<LocationQuery> findAllByTotalDeaths(@Param("total_deaths") int totalDeaths);
+
+    @Query("FROM LocationQuery WHERE totalRecovered >= :total_recovered")
+    List<LocationQuery> findAllByTotalRecovered(@Param("total_recovered") int totalRecovered);
 }

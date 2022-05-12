@@ -27,7 +27,7 @@ public class LocationQueryService {
     public List<LocationQuery> getAllByFilter(String filter, String filterStr, int minNum) {
         List<LocationQuery> retList = new ArrayList<>();
         switch (filter.toLowerCase()) {
-            case "locationname":
+            case "location_name":
                 retList = locationQueryRepository.findAllByLocationName(filterStr);
                 break;
             case "status":
@@ -39,13 +39,13 @@ public class LocationQueryService {
             case "vaccinated":
                 retList = locationQueryRepository.findAllByVaccinatedPopulation(minNum);
                 break;
-            case "totalInfections":
+            case "total_infections":
                 retList = locationQueryRepository.findAllByNumInfections(minNum);
                 break;
-            case "totalDeaths":
+            case "total_deaths":
                 retList = locationQueryRepository.findAllByTotalDeaths(minNum);
                 break;
-            case "totalRecovered":
+            case "total_recovered":
                 retList = locationQueryRepository.findAllByTotalRecovered(minNum);
                 break;
         }
