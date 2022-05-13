@@ -26,17 +26,17 @@ public class LocationQuery {
     private String status;
 
     @Column(name = "population")
-    private int population;
+    private Integer population;
 
     @Column(name = "vaccinated")
-    private int vaccinated;
+    private Integer vaccinated;
 
     @Column(name = "total_infections")
-    private int totalInfections;
+    private Integer totalInfections;
 
     @Column(name = "total_deaths")
-    private int totalDeaths;
+    private Integer totalDeaths;
 
     @Column(name = "total_recovered")
-    private int totalRecovered;
+    private Integer totalRecovered;
 }
