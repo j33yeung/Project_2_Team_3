@@ -3,6 +3,7 @@ package com.Project_2_Location_Status_API.Entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name= "Statuses")
@@ -25,5 +26,5 @@ public class Status {
     private String location;
 
     @Column(name = "creationDate")
-    private String creationDate;
+    private LocalDate creationDate;
 }

@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.time.LocalDate;
 
 @Service
 public class StatusService {
@@ -15,21 +15,23 @@ public class StatusService {
     private StatusRepository statusRepository;
 
     public Status getStatusByLocation(String location) {
-        Optional<Status> op = statusRepository.findByLocation(location);
-        if (op.isPresent()) {
-            return op.get();
+        Status op = statusRepository.findByLocation(location);
+        if (op != null) {
+            return op;
         } else {
             throw new NullPointerException(location + " could not be found");
         }
     }
 
     public void createNewStatus(Status status) {
-        if(status.getLocation().isEmpty()) {
-            throw new NullPointerException("Can't create a status with a null location");
-        } else if(status.getScore() == null) {
-            throw new NullPointerException("Can't create a status with a null score");
-        } else if(status.getCreationDate().isEmpty()) {
+        if(status.getLocation() == null || status.getLocation().isEmpty()) {
+            throw new NullPointerException("Can't create a status without a location");
+        } else if(status.getScore() == null || status.getScore() < 0) {
+            throw new NullPointerException("Can't create a status with a null or negative score");
+        } else if(status.getCreationDate() == null) {
             throw new NullPointerException("Can't create a status with a null creation date");
+        } else if(status.getCreationDate().isAfter(LocalDate.now())) {
+            throw new NullPointerException("Can't create a status with a date in the future");
         } else {
             statusRepository.save(status);
         }
