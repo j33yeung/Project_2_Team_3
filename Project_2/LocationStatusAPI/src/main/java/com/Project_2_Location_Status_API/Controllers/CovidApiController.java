@@ -40,5 +40,10 @@ public class CovidApiController {
         return ResponseEntity.ok().body("This location is currently safe to visit.");
     }
 
+    @GetMapping("vaccine-data") // covid-api/vaccine-data?country=nameOfCountry
+    public ResponseEntity<String> getVaccineDataByCountry(@RequestParam String country){
+        return ResponseEntity.ok(covidApiService.getAllVaccineDataByCountry(country).getBody());
+    }
+
 
 }

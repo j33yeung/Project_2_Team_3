@@ -14,6 +14,7 @@ import java.util.Arrays;
 public class CovidApiService {
 
     private static final String GET_COVID_API = "https://disease.sh/v3/covid-19/countries/";
+    private static final String GET_COVID_VACCINE_INFO = "https://disease.sh/v3/covid-19/vaccine/coverage/countries/";
 
 
 //    @Autowired
@@ -40,6 +41,20 @@ public class CovidApiService {
 //        String cases = response.getBody().getCases();
 
         return 70;
+    }
+
+    public ResponseEntity<String> getAllVaccineDataByCountry(String country) {
+
+        RestTemplate covidApiRestTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
+
+        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+
+        return covidApiRestTemplate.exchange(GET_COVID_VACCINE_INFO + country + "?lastdays=1&fullData=false", HttpMethod.GET, entity, String.class);
+
     }
 
 
