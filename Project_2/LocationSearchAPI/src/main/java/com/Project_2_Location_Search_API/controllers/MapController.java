@@ -1,13 +1,11 @@
 package com.Project_2_Location_Search_API.controllers;
 
+import com.Project_2_Location_Search_API.dto.MapRequestDTO;
 import com.Project_2_Location_Search_API.service.MapService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/map")
@@ -39,5 +37,10 @@ public class MapController {
     @GetMapping("/general")
     public ResponseEntity general(@RequestParam String q) {
         return ResponseEntity.ok(mapService.getGeneral(q).getBody());
+    }
+
+    @PostMapping("/showmap")
+    public ResponseEntity showMap(@RequestBody MapRequestDTO mapRequestDTO) {
+        return mapService.getMap(mapRequestDTO.getCenter(), mapRequestDTO.getMarker1(), mapRequestDTO.getMarker2(), mapRequestDTO.getPath());
     }
 }
