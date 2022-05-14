@@ -1,5 +1,6 @@
 package com.Project_2_Location_Status_API.Services;
 
+import com.Project_2_Location_Status_API.Entities.CovidStats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ public class CovidApiService {
 //    @Autowired
 //    private RestTemplate covidApiRestTemplate;
 
-    public ResponseEntity<String> getAllDataByCountry(String country){
+    public ResponseEntity<CovidStats> getAllDataByCountry(String country){
 
         RestTemplate covidApiRestTemplate = new RestTemplate();
 
@@ -28,13 +29,18 @@ public class CovidApiService {
 
         HttpEntity<String> entity = new HttpEntity<>("parameters",headers);
 
-        return covidApiRestTemplate.exchange(GET_COVID_API + country, HttpMethod.GET,entity,String.class);
+//        System.out.println(result.getBody().getCountry());
 
-
-//      return covidApiRestTemplate.getForEntity(GET_COVID_API+ country,String.class);
-
+        return covidApiRestTemplate.exchange(GET_COVID_API + country, HttpMethod.GET,entity,CovidStats.class);
     }
 
+    public Integer calculateStatus (ResponseEntity<CovidStats> response) {
+
+//        Can access the response to get whatever information you need for the calculations (check below for example)
+//        String cases = response.getBody().getCases();
+
+        return 70;
+    }
 
 
 }
