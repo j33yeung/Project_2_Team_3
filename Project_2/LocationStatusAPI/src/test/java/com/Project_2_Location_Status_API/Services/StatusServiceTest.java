@@ -29,7 +29,7 @@ class StatusServiceTest {
         when(mockStatusRepository.save(status)).thenReturn(status);
 
         Assertions.assertDoesNotThrow(() -> {
-            statusServiceService.createNewStatus(status);
+            statusServiceService.saveNewStatus(status);
         });
     }
 
@@ -39,7 +39,7 @@ class StatusServiceTest {
                 LocalDate.parse("2020-01-01"));
         when(mockStatusRepository.save(status)).thenReturn(status);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.createNewStatus(status));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(status));
         Assertions.assertEquals("Can't create a status with a null or negative score", ex.getMessage(), "Null score prevented status creation");
     }
 
@@ -49,7 +49,7 @@ class StatusServiceTest {
                 LocalDate.parse("2020-01-01"));
         when(mockStatusRepository.save(status)).thenReturn(status);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.createNewStatus(status));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(status));
         Assertions.assertEquals("Can't create a status with a null or negative score", ex.getMessage(), "Negative score prevented status creation");
     }
 
@@ -59,7 +59,7 @@ class StatusServiceTest {
                 LocalDate.parse("2020-01-01"));
         when(mockStatusRepository.save(status)).thenReturn(status);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.createNewStatus(status));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(status));
         Assertions.assertEquals("Can't create a status without a location", ex.getMessage(), "No provided location prevented status creation");
     }
 
@@ -69,7 +69,7 @@ class StatusServiceTest {
                 LocalDate.parse("2020-01-01"));
         when(mockStatusRepository.save(status)).thenReturn(status);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.createNewStatus(status));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(status));
         Assertions.assertEquals("Can't create a status without a location", ex.getMessage(), "Null location prevented status creation");
     }
 
@@ -79,7 +79,7 @@ class StatusServiceTest {
                 null);
         when(mockStatusRepository.save(status)).thenReturn(status);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.createNewStatus(status));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(status));
         Assertions.assertEquals("Can't create a status with a null creation date", ex.getMessage(), "Null creation date prevented status creation");
     }
 
@@ -89,7 +89,7 @@ class StatusServiceTest {
                 LocalDate.parse("2028-01-01"));
         when(mockStatusRepository.save(status)).thenReturn(status);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.createNewStatus(status));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(status));
         Assertions.assertEquals("Can't create a status with a date in the future", ex.getMessage(), "Status creation cannot use a creation date in the future");
     }
 

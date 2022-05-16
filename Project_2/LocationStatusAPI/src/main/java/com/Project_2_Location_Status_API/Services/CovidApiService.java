@@ -1,9 +1,7 @@
 package com.Project_2_Location_Status_API.Services;
 
-import com.Project_2_Location_Status_API.Entities.CovidStats;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
+import com.Project_2_Location_Status_API.DTO.CovidStatsDTO;
+import com.Project_2_Location_Status_API.DTO.VaccineDataDTO;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,7 +18,7 @@ public class CovidApiService {
 //    @Autowired
 //    private RestTemplate covidApiRestTemplate;
 
-    public ResponseEntity<CovidStats> getAllDataByCountry(String country){
+    public ResponseEntity<CovidStatsDTO> getAllDataByCountry(String country){
 
         RestTemplate covidApiRestTemplate = new RestTemplate();
 
@@ -30,20 +28,12 @@ public class CovidApiService {
 
         HttpEntity<String> entity = new HttpEntity<>("parameters",headers);
 
-//        System.out.println(result.getBody().getCountry());
 
-        return covidApiRestTemplate.exchange(GET_COVID_API + country, HttpMethod.GET,entity,CovidStats.class);
+        return covidApiRestTemplate.exchange(GET_COVID_API + country, HttpMethod.GET,entity, CovidStatsDTO.class);
     }
 
-    public Integer calculateStatus (ResponseEntity<CovidStats> response) {
 
-//        Can access the response to get whatever information you need for the calculations (check below for example)
-//        String cases = response.getBody().getCases();
-
-        return 70;
-    }
-
-    public ResponseEntity<String> getAllVaccineDataByCountry(String country) {
+    public ResponseEntity<VaccineDataDTO> getAllVaccineDataByCountry(String country) {
 
         RestTemplate covidApiRestTemplate = new RestTemplate();
 
@@ -53,7 +43,7 @@ public class CovidApiService {
 
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-        return covidApiRestTemplate.exchange(GET_COVID_VACCINE_INFO + country + "?lastdays=1&fullData=false", HttpMethod.GET, entity, String.class);
+        return covidApiRestTemplate.exchange(GET_COVID_VACCINE_INFO + country + "?lastdays=1&fullData=false", HttpMethod.GET, entity, VaccineDataDTO.class);
 
     }
 
