@@ -26,8 +26,8 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
          name: LocationSearchAPI
-         path: buildpath/LocationSearchAPI/target/LocationSearchAPI.jar
+         path: buildpath/LocationSearchAPI/target
       - uses: actions/upload-artifact@v3
         with:
          name: LocationStatusAPI
-         path: buildpath/LocationStatusAPI/target/LocationStatusAPI.jar
+         path: buildpath/LocationStatusAPI/target
