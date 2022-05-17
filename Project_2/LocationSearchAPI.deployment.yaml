@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: location-search-api
+  labels:
+    app: location-search-api
+    tier: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: location-search-api
+  template:
+    metadata:
+      labels:
+        app: location-search-api
+        tier: webserver
+    spec:
+      containers:
+        - name: location-search-api
+          image: alahkaih/location-search-api:latest
+          imagePullPolicy: Always

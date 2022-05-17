@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: location-status-api
+  labels:
+    app: location-status-api
+    tier: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: location-status-api
+  template:
+    metadata:
+      labels:
+        app: location-status-api
+        tier: webserver
+    spec:
+      containers:
+        - name: location-status-api
+          image: alahkaih/location-status-api:latest
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webserver
+  name: webserver
+spec:
+  ports:
+    - port: 90
+  selector:
+    app: location-status-api
+  type: NodePort
