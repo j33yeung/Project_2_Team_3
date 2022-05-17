@@ -15,6 +15,7 @@ jobs:
       with:
         name: alahkaih/location-search-api
         dockerfile: Project_2/LocationSearchAPI/Dockerfile
+        build-args: JAR_FILE=buildpath/LocationSearchAPI.jar
         snapshot: true
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
