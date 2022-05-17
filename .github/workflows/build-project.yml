@@ -25,5 +25,9 @@ jobs:
       - run: cp LocationStatusAPI/target/*.jar buildpath
       - uses: actions/upload-artifact@v3
         with:
-         name: Package
-         path: buildpath
+         name: LocationSearchAPI
+         path: buildpath/LocationSearchAPI/target/*.jar
+      - uses: actions/upload-artifact@v3
+        with:
+         name: LocationStatusAPI
+         path: buildpath/LocationStatusAPI/target/*.jar
