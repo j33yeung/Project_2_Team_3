@@ -22,10 +22,10 @@ jobs:
         run: mvn --batch-mode --update-snapshots package
       - run: mkdir staging
       - run: cp LocationSearchAPI/target/*.jar staging
-      - uses: actions/upload-artifact@v3
-        with:
-         name: Package
-         path: Project_2/staging
+      #- uses: actions/upload-artifact@v3
+       # with:
+        # name: Package
+         #path: Project_2/staging
       - name: Publish to Registry (Search)
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
