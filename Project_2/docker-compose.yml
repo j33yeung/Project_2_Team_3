@@ -2,13 +2,19 @@ version: '3.9'
 
 services:
   LocationStatusAPI:
-    build: LocationStatusAPI
+    build:
+      context: LocationStatusAPI
+      args:
+        - JAR_FILE=./target/LocationStatusAPI.Jar
     image: location_status_api:latest
     container_name: LocationStatusAPI
     ports:
       - "8000:8000"
   LocationSearchAPI:
-    build: LocationSearchAPI
+    build:
+      context: LocationSearchAPI
+      args:
+        - JAR_FILE=./target/LocationSearchAPI.Jar
     image: location_search_api:latest
     container_name: LocationSearchAPI
     ports:
