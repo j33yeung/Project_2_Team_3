@@ -33,7 +33,7 @@ jobs:
         with:
           name: alahkaih/location-search-api
           dockerfile: Project_2/LocationSearchAPI/Dockerfile
-          build-args: JAR_FILE=staging/LocationSearchAPI.jar
+          buildargs: JAR_FILE=staging/LocationSearchAPI.jar
           snapshot: true
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -41,8 +41,8 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           name: alahkaih/location-status-api
-          build-args: JAR_FILE=staging/LocationStatusAPI.jar
           dockerfile: Project_2/LocationStatusAPI/Dockerfile
+          buildargs: staging/LocationStatusAPI.jar
           snapshot: true
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
