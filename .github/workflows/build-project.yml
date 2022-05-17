@@ -27,3 +27,23 @@ jobs:
         with:
          name: Package
          path: Project_2/staging
+      - uses: actions/checkout@v3
+      - name: Publish to Registry (Search)
+        uses: elgohr/Publish-Docker-Github-Action@v4
+        with:
+          name: alahkaih/location-search-api
+          dockerfile: Project_2/LocationSearchAPI/Dockerfile
+          build-args: JAR_FILE=staging/LocationSearchAPI.jar
+          snapshot: true
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Publish to Registry (Status)
+        uses: elgohr/Publish-Docker-Github-Action@v4
+        with:
+          name: alahkaih/location-status-api
+          build-args: JAR_FILE=staging/LocationStatusAPI.jar
+          dockerfile: Project_2/LocationStatusAPI/Dockerfile
+          snapshot: true
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
