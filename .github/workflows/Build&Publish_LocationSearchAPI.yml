@@ -1,4 +1,4 @@
-name: Publish Docker
+name: Publish LocationSearchAPI
 on: 
   push: 
     branches: [ main ]
@@ -14,8 +14,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v4
       with:
         name: alahkaih/location-search-api
-        context: "{{defaultContext}}:LocationSearchAPI"
-        dockerfile: Dockerfile
+        dockerfile: Project_2/LocationSearchAPI/Dockerfile
         snapshot: true
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
