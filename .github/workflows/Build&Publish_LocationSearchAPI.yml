@@ -1,4 +1,4 @@
-name: Publish Docker
+name: Publish LocationSearchAPI
 on: 
   push: 
     branches: [ main ]
