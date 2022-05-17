@@ -60,7 +60,5 @@ public class StatusService {
         } else {
             return "Not safe to travel";
         }
-
-
     }
 }

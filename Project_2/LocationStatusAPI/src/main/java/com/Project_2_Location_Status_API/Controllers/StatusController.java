@@ -21,10 +21,10 @@ public class StatusController {
     @Setter(onMethod =@__({@Autowired}))
     private CovidApiService covidApiService;
 
-    @GetMapping("{location}")
-    public ResponseEntity getStatusByLocation(@PathVariable String location) {
-        return ResponseEntity.ok(statusService.getStatusByLocation(location));
-    }
+//    @GetMapping("{location}")
+//    public ResponseEntity getStatusByLocation(@PathVariable String location) {
+//        return ResponseEntity.ok(statusService.getStatusByLocation(location));
+//    }
 
     @PostMapping
     public ResponseEntity saveNewStatus(@RequestBody Status status) {
@@ -37,8 +37,8 @@ public class StatusController {
         return ResponseEntity.ok("Successfully created new status for " + status.getLocation());
     }
 
-    @GetMapping("search")
-    public String getStatusBasedOnLocation(@RequestParam String country) {
+    @GetMapping("{country}")
+    public ResponseEntity getStatusBasedOnLocation(@PathVariable String country) {
 
         Status status = new Status();
         CovidStatsDTO covidStats = covidApiService.getAllDataByCountry(country).getBody();
@@ -48,6 +48,6 @@ public class StatusController {
         status.setScore(statusService.calculateScore(covidStats,vaccineStats));
         status.setCreationDate(LocalDate.now());
         statusService.saveNewStatus(status);
-        return  statusService.calculateStatusReport(status.getScore());
+        return ResponseEntity.ok(statusService.calculateStatusReport(status.getScore()));
     }
 }
