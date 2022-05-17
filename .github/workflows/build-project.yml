@@ -20,7 +20,9 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
-      - run: mkdir buildpath && cp target/*.jar buildpath
+      - run: mkdir buildpath
+      - run: cp LocationSearchAPI/target/*.jar buildpath
+      - run: cp LocationStatusAPI/target/*.jar buildpath
       - uses: actions/upload-artifact@v3
         with:
          name: Package
