@@ -15,27 +15,28 @@ import javax.persistence.*;
 public class LocationQuery {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", columnDefinition = "AUTO_INCREMENT")
     private int queryID;
 
-    @Column(name = "locationName")
+    @Column(name = "location_name")
     private String locationName;
 
     @Column(name = "status")
     private String status;
 
     @Column(name = "population")
-    private int population;
+    private Integer population;
 
     @Column(name = "vaccinated")
-    private int vaccinated;
+    private Integer vaccinated;
 
-    @Column(name = "totalInfections")
-    private int totalInfections;
+    @Column(name = "total_infections")
+    private Integer totalInfections;
 
-    @Column(name = "totalDeaths")
-    private int totalDeaths;
+    @Column(name = "total_deaths")
+    private Integer totalDeaths;
 
-    @Column(name = "totalRecovered")
-    private int totalRecovered;
+    @Column(name = "total_recovered")
+    private Integer totalRecovered;
 }

@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  LocationStatusAPI:
+    build: LocationStatusAPI
+    image: location_status_api:latest
+    container_name: LocationStatusAPI
+    ports:
+      - "8000:8000"
+  LocationSearchAPI:
+    build: LocationSearchAPI
+    image: location_search_api:latest
+    container_name: LocationSearchAPI
+    ports:
+      - "7000:8081"
+  prom:
+    image: 'bitnami/prometheus'
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+  graf:
+    image: 'grafana/grafana'
+    container_name: grafana
+    ports:
+      - "3000:3000"
+  jenkins:
+    image: 'jenkins:2.60.3'
+    container_name: jenkins
+    ports:
+      - "9000:8080"
+  loki:
+    image: 'grafana/loki'
+    container_name: loki
+    ports:
+      - "3100:3100"

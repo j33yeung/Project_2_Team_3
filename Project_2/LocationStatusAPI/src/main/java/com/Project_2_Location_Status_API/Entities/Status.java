@@ -1,8 +1,10 @@
 package com.Project_2_Location_Status_API.Entities;
 
 import lombok.*;
+import lombok.extern.apachecommons.CommonsLog;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name= "Statuses")
@@ -24,6 +26,11 @@ public class Status {
     @Column(name = "location")
     private String location;
 
+
+
+//    @Column(name ="statusReport")
+//    private String statusReport;
+
     @Column(name = "creationDate")
-    private String creationDate;
+    private LocalDate creationDate;
 }

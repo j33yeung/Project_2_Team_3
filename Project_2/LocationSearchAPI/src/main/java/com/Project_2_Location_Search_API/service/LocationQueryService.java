@@ -2,6 +2,8 @@ package com.Project_2_Location_Search_API.service;
 
 import com.Project_2_Location_Search_API.entities.LocationQuery;
 import com.Project_2_Location_Search_API.repositories.LocationQueryRepository;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,16 +12,33 @@ import java.util.List;
 @Service
 public class LocationQueryService {
 
+    @Setter(onMethod = @__({@Autowired}))
     private LocationQueryRepository locationQueryRepository;
 
-    public LocationQueryService(LocationQueryRepository locationQueryRepository) {
-        super();
-        this.locationQueryRepository = locationQueryRepository;
-    }
+//    This code is now redundant but I will leave it just in case                   //
+//    public LocationQueryService(LocationQueryRepository locationQueryRepository) {
+//        super();
+//        this.locationQueryRepository = locationQueryRepository;
+//    }
 
-    public boolean addSearch(LocationQuery locationQuery) {
-        locationQueryRepository.save(locationQuery);
-        return true;
+    public LocationQuery addSearch(LocationQuery locationQuery) {
+        if(locationQuery.getLocationName() == null || locationQuery.getLocationName().isEmpty()) {
+            throw new NullPointerException("Location name can't be null");
+        } else if(locationQuery.getStatus() == null || locationQuery.getStatus().isEmpty()) {
+            throw new NullPointerException("Status can't be null");
+        } else if(locationQuery.getPopulation() == null) {
+            throw new NullPointerException("Population can't be null");
+        } else if(locationQuery.getVaccinated() == null) {
+            throw new NullPointerException("Vaccinated can't be null");
+        } else if(locationQuery.getTotalInfections() == null) {
+            throw new NullPointerException("Total infections can't be null");
+        } else if(locationQuery.getTotalDeaths() == null) {
+            throw new NullPointerException("Total deaths can't be null");
+        } else if(locationQuery.getTotalRecovered() == null) {
+            throw new NullPointerException("Total recovered can't be null");
+        } else {
+            return locationQueryRepository.save(locationQuery);
+        }
     }
 
     public List<LocationQuery> getAllSearches() { return locationQueryRepository.findAll(); }
@@ -27,7 +46,7 @@ public class LocationQueryService {
     public List<LocationQuery> getAllByFilter(String filter, String filterStr, int minNum) {
         List<LocationQuery> retList = new ArrayList<>();
         switch (filter.toLowerCase()) {
-            case "locationname":
+            case "location_name":
                 retList = locationQueryRepository.findAllByLocationName(filterStr);
                 break;
             case "status":
@@ -39,13 +58,13 @@ public class LocationQueryService {
             case "vaccinated":
                 retList = locationQueryRepository.findAllByVaccinatedPopulation(minNum);
                 break;
-            case "totalInfections":
-                retList = locationQueryRepository.findAllByNumInfections(minNum);
+            case "total_infections":
+                retList = locationQueryRepository.findAllByTotalInfections(minNum);
                 break;
-            case "totalDeaths":
+            case "total_deaths":
                 retList = locationQueryRepository.findAllByTotalDeaths(minNum);
                 break;
-            case "totalRecovered":
+            case "total_recovered":
                 retList = locationQueryRepository.findAllByTotalRecovered(minNum);
                 break;
         }
