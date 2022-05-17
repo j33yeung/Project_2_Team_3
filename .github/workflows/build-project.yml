@@ -21,13 +21,13 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
       - run: mkdir buildpath
-      - run: cp LocationSearchAPI/target/*.jar buildpath
-      - run: cp LocationStatusAPI/target/*.jar buildpath
+      - run: cp LocationSearchAPI/target/LocationSearchAPI.jar buildpath
+      - run: cp LocationStatusAPI/target/LocationStatusAPI.jar buildpath
       - uses: actions/upload-artifact@v3
         with:
          name: LocationSearchAPI
-         path: buildpath/LocationSearchAPI/target/*.jar
+         path: buildpath/LocationSearchAPI/target/LocationSearchAPI.jar
       - uses: actions/upload-artifact@v3
         with:
          name: LocationStatusAPI
-         path: buildpath/LocationStatusAPI/target/*.jar
+         path: buildpath/LocationStatusAPI/target/LocationStatusAPI.jar
