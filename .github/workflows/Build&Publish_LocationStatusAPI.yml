@@ -14,6 +14,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v4
       with:
         name: alahkaih/location-status-api
+        context: "{{defaultContext}}:LocationStatusAPI"
         dockerfile: Dockerfile
         snapshot: true
         username: ${{ secrets.DOCKER_USERNAME }}

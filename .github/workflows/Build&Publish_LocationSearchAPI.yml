@@ -14,8 +14,8 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v4
       with:
         name: alahkaih/location-search-api
-        workdir: LocationSearchAPI
-        dockerfile: dockerfile
+        context: "{{defaultContext}}:LocationSearchAPI"
+        dockerfile: Dockerfile
         snapshot: true
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
