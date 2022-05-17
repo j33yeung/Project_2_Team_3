@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Project_2
 
     steps:
       - uses: actions/checkout@v3
@@ -16,6 +19,4 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
       - name: Build with Maven
-        with:
-          workingdir: Project_2
-          run: mvn --batch-mode --update-snapshots package
+        run: mvn --batch-mode --update-snapshots package
