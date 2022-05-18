@@ -12,5 +12,4 @@ import lombok.*;
 public class VaccineDataDTO {
     private String country;
     private JsonNode timeline; //contains num of vaccination up to current date-1 i.e. yesterday
-
 }
