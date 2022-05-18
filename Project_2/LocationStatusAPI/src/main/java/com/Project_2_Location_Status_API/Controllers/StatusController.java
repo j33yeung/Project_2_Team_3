@@ -45,7 +45,7 @@ public class StatusController {
         VaccineDataDTO vaccineStats = covidApiService.getAllVaccineDataByCountry(country).getBody();
 
         status.setLocation(country);
-        status.setScore(statusService.calculateScore(covidStats,vaccineStats));
+        status.setScore(statusService.calculateScore(covidStats, vaccineStats));
         status.setCreationDate(LocalDate.now());
         statusService.saveNewStatus(status);
         return ResponseEntity.ok(statusService.calculateStatusReport(status.getScore()));

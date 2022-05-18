@@ -21,7 +21,7 @@ public class Status {
     private int id;
 
     @Column(name = "score")
-    private Integer score;
+    private double score;
 
     @Column(name = "location")
     private String location;

@@ -35,7 +35,7 @@ class StatusServiceTest {
 
     @Test
     public void shouldNotCreateNewStatusWithNullScore(){
-        Status status = new Status(1, null, "Spain",
+        Status status = new Status(1, 0, "Spain",
                 LocalDate.parse("2020-01-01"));
         when(mockStatusRepository.save(status)).thenReturn(status);
 
