@@ -20,3 +20,18 @@ spec:
         - name: location-search-api
           image: alahkaih/location-search-api:latest
           imagePullPolicy: Always
+          ports:
+            - containerPort: 7000
+          env:
+            - name: SERVER_PORT
+              value: "7000"
+          livenessProbe:
+            tcpSocket:
+              port: 7000
+            initialDelaySeconds: 30
+            periodSeconds: 15
+          readinessProbe:
+            tcpSocket:
+              port: 7000
+            initialDelaySeconds: 15
+            periodSeconds: 15
