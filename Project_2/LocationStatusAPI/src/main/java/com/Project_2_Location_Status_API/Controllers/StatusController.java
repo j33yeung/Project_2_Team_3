@@ -47,7 +47,8 @@ public class StatusController {
         statusReport.setLocation(country);
         statusReport.setScore(statusService.calculateScore(covidStats, vaccineStats));
         statusReport.setCreationDate(LocalDate.now());
+        statusReport.setStatus(statusService.calculateStatusBasedOnScore(statusReport.getScore()));
         statusService.saveNewStatus(statusReport);
-        return ResponseEntity.ok(statusService.calculateStatusReport(statusReport.getScore()));
+        return ResponseEntity.ok(statusReport);
     }
 }

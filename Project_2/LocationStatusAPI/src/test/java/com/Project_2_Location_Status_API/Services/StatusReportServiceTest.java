@@ -25,7 +25,7 @@ class StatusReportServiceTest {
     @Test
     public void shouldCreateNewSearchSuccessfully(){
         StatusReport statusReport = new StatusReport(1, 54, "Spain",
-                LocalDate.parse("2020-01-01"));
+                LocalDate.parse("2020-01-01"),"Safe to Travel");
         when(mockStatusRepository.save(statusReport)).thenReturn(statusReport);
 
         Assertions.assertDoesNotThrow(() -> {
@@ -36,7 +36,7 @@ class StatusReportServiceTest {
     @Test
     public void shouldNotCreateNewStatusWithNullScore(){
         StatusReport statusReport = new StatusReport(1, 0, "Spain",
-                LocalDate.parse("2020-01-01"));
+                LocalDate.parse("2020-01-01"),"Safe to Travel");
         when(mockStatusRepository.save(statusReport)).thenReturn(statusReport);
 
         NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(statusReport));
@@ -46,7 +46,7 @@ class StatusReportServiceTest {
     @Test
     public void shouldNotCreateNewStatusWithNegativeScore(){
         StatusReport statusReport = new StatusReport(1, -25, "Spain",
-                LocalDate.parse("2020-01-01"));
+                LocalDate.parse("2020-01-01"),"Safe to Travel");
         when(mockStatusRepository.save(statusReport)).thenReturn(statusReport);
 
         NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(statusReport));
@@ -56,7 +56,7 @@ class StatusReportServiceTest {
     @Test
     public void shouldNotCreateNewStatusWithEmptyStringLocation(){
         StatusReport statusReport = new StatusReport(1, 54, "",
-                LocalDate.parse("2020-01-01"));
+                LocalDate.parse("2020-01-01"),"Safe to Travel");
         when(mockStatusRepository.save(statusReport)).thenReturn(statusReport);
 
         NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(statusReport));
@@ -66,7 +66,7 @@ class StatusReportServiceTest {
     @Test
     public void shouldNotCreateNewStatusWithNullLocation(){
         StatusReport statusReport = new StatusReport(1, 54, null,
-                LocalDate.parse("2020-01-01"));
+                LocalDate.parse("2020-01-01"),"Safe to Travel");
         when(mockStatusRepository.save(statusReport)).thenReturn(statusReport);
 
         NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(statusReport));
@@ -76,7 +76,7 @@ class StatusReportServiceTest {
     @Test
     public void shouldNotCreateNewStatusWithNullDate(){
         StatusReport statusReport = new StatusReport(1, 54, "Spain",
-                null);
+                null,"Safe to Travel");
         when(mockStatusRepository.save(statusReport)).thenReturn(statusReport);
 
         NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(statusReport));
@@ -86,7 +86,7 @@ class StatusReportServiceTest {
     @Test
     public void shouldNotCreateNewStatusWithFutureDate(){
         StatusReport statusReport = new StatusReport(1, 54, "Spain",
-                LocalDate.parse("2028-01-01"));
+                LocalDate.parse("2028-01-01"),"Safe to Travel");
         when(mockStatusRepository.save(statusReport)).thenReturn(statusReport);
 
         NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.saveNewStatus(statusReport));
@@ -96,7 +96,7 @@ class StatusReportServiceTest {
     @Test
     public void shouldGetStatusByLocation(){
         StatusReport statusReport = new StatusReport(1, 54, "Spain",
-                LocalDate.parse("2022-01-01"));
+                LocalDate.parse("2022-01-01"),"Safe to Travel");
         when(mockStatusRepository.findByLocation(statusReport.getLocation())).thenReturn(statusReport);
 
         Assertions.assertEquals(statusReport, statusServiceService.getStatusByLocation(statusReport.getLocation()), "StatusReport was successfully found by location");
@@ -110,7 +110,7 @@ class StatusReportServiceTest {
     @Test
     public void shouldNotGetStatusByInvalidLocation(){
         StatusReport statusReport = new StatusReport(1, 54, "Spain",
-                LocalDate.parse("2022-01-01"));
+                LocalDate.parse("2022-01-01"),"Safe to Travel");
         when(mockStatusRepository.findByLocation(statusReport.getLocation())).thenReturn(statusReport);
 
         NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> statusServiceService.getStatusByLocation("InvalidLocation"));

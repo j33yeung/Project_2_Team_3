@@ -1,16 +1,16 @@
 package com.Project_2_Location_Search_API.controllers;
 
 import com.Project_2_Location_Search_API.entities.LocationQuery;
+import com.Project_2_Location_Search_API.entities.StatusReport;
 import com.Project_2_Location_Search_API.service.LocationQueryService;
-import com.Project_2_Location_Search_API.service.MapService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/search")
@@ -21,7 +21,7 @@ public class LocationQueryController {
 
     @PostMapping("/")
     public void addLocationQuery(@RequestBody LocationQuery locationQuery) {
-        LocationQuery locationQueryAdded = locationQueryService.addSearch(locationQuery);
+        LocationQuery locationQueryAdded = locationQueryService.saveSearch(locationQuery);
         if (locationQueryAdded == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error happened when adding a search object");
         }
@@ -37,4 +37,18 @@ public class LocationQueryController {
         List<LocationQuery> retList = locationQueryService.getAllByFilter(filter, filterStr, minNum);
         return retList;
     }
+
+    @GetMapping("{country}")
+    public ResponseEntity getCountryStatus(@PathVariable String country){
+        StatusReport statusReport =locationQueryService.requestStatusReportByCountry(country);
+        return ResponseEntity.ok(statusReport.getStatus());
+        //Add call to map api to show interface
+    }
+
+
+
+
+
+
+
 }
