@@ -21,6 +21,11 @@ public class MapService {
     private final String baseURL = "https://api.locationiq.com/v1";
     private final String mapBaseURL = "https://maps.locationiq.com/v3";
 
+    /**
+     * Consume 3rd party API and fetch map request
+     * @param url
+     * @return requested URL
+     */
     private ResponseEntity fetchRequest(String url) {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -32,6 +37,11 @@ public class MapService {
         return restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
     }
 
+    /**
+     * Consume 3rd party API and fetch map interface image
+     * @param url
+     * @return response/map image
+     */
     private ResponseEntity fetchImage(String url) {
 
 
@@ -52,16 +62,41 @@ public class MapService {
         }
     }
 
+    /**
+     * Get map interface by postal code
+     * @param postalcode
+     * @param countrycodes
+     * @param format
+     * @return map
+     */
     public ResponseEntity getByPostalCode(String postalcode, String countrycodes, String format) {
         String url = String.format("%s/search.php?key=%s&postalcode=%s&countrycodes=%s&format=%s", baseURL, key, postalcode, countrycodes, format);
         return fetchRequest(url);
     }
 
+    /**
+     * Get map by well known structure, Ex. Empire State Building
+     * @param street
+     * @param city
+     * @param county
+     * @param state
+     * @param country
+     * @param postalcode
+     * @param format
+     * @return map
+     */
     public ResponseEntity getByStructured(String street, String city, String county, String state, String country, String postalcode, String format) {
         String url = String.format("%s/search.php?key=%s&street=%s&city=%s&county=%s&state=%s&country=%s&postalcode=%s&format=%s", baseURL, key, street, city, county, state, country, postalcode, format);
         return fetchRequest(url);
     }
 
+    /**
+     * Consume 3rd party API and get map by US state
+     * @param state
+     * @param format
+     * @param countryCodes
+     * @return map
+     */
     public ResponseEntity getStateInfo(String state, String format, String countryCodes) {
         String[] listOfUsStates = new String[] {"alabama", "alaska", "arizona", "arkansas", "california", "colorado", "connecticut", "delaware", "florida", "georgia", "hawaii", "idaho", "illinois", "indiana", "iowa", "kansas", "kentucky", "louisiana", "maine", "maryland", "massachusetts", "michigan", "minnesota", "mississippi", "missouri", "montana", "nebraska", "nevada", "new hampshire", "new jersey", "new mexico", "new york", "north carolina", "ohio", "oklahoma", "oregon", "pennsylvania", "rhode island", "south carolina", "south dakota", "tennessee", "texas", "utah", "vermont", "virginia", "washington", "west virginia", "wisconsin", "wyoming"};
         if (!Arrays.asList(listOfUsStates).contains(state.toLowerCase())) {
@@ -71,22 +106,45 @@ public class MapService {
         return fetchRequest(url);
     }
 
+    /**
+     * Get map by country
+     * @param country
+     * @param format
+     * @return map
+     */
     public ResponseEntity getLocationInfo(String country, String format){
         String url = String.format("%s/autocomplete.php?key=%s&q=%s&format=%s", baseURL, key, country, format);
         return fetchRequest(url);
     }
 
+    /**
+     * Get map by queried data
+     * @param q
+     * @param format
+     * @return map
+     */
     public ResponseEntity getByQuery(String q, String format) {
         String url = String.format("%s/autocomplete.php?key=%s&q=%s&format=%s", baseURL, key, q, format);
         return fetchRequest(url);
     }
 
+    /**
+     * Get map by general information
+     * @param q
+     * @return map
+     */
     public ResponseEntity getGeneral(String q) {
         String url = String.format("%s/autocomplete.php?key=%s&q=%s", baseURL, key, q);
         return fetchRequest(url);
     }
 
 
+    /**
+     * Get Location Map by country using longitude and latitude
+     * @param country
+     * @param format
+     * @return map image
+     */
     public ResponseEntity getLocationMap(String country, String format) {
 
         ResponseEntity response = getLocationInfo(country, format);

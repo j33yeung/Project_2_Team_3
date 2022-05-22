@@ -16,6 +16,12 @@ public class StatusService {
     @Setter(onMethod = @__({@Autowired}))
     private StatusRepository statusRepository;
 
+    /**
+     * Service method to get status by location
+     * @throws null pointer exception if location is not found
+     * @param location
+     * @return the status of the queried location
+     */
     public StatusReport getStatusByLocation(String location) {
         StatusReport op = statusRepository.findByLocation(location);
         if (op != null) {
@@ -24,6 +30,16 @@ public class StatusService {
             throw new NullPointerException(location + " could not be found");
         }
     }
+
+    /**
+     * Creates and saves a new status report
+     * @throws null pointer exception if:
+     *      -there is no location
+     *      -null or negative score
+     *      -null creation date
+     *      -future date
+     * @param statusReport
+     */
 
     public void saveNewStatus(StatusReport statusReport) {
         if (statusReport.getLocation() == null || statusReport.getLocation().isEmpty()) {
@@ -39,6 +55,14 @@ public class StatusService {
         }
     }
 
+    /**
+     * Calculation takes covid status data and coverts it to a numerical score
+     * @param covidStats
+     * @param vaccineStats
+     * @return the amount of current vaccinated residents divided by the total population
+     * of a country, multiplied by 100 to receive score
+     */
+
     public double calculateScore(CovidStatsDTO covidStats, VaccineDataDTO vaccineStats) {
         if (covidStats == null  || vaccineStats == null)
             throw new NullPointerException("No data found for country provided");
@@ -52,6 +76,15 @@ public class StatusService {
         return  (popVaccinated/totalPopulation) * 100;
     }
 
+
+    /**
+     * Converts previously created score into a new Status
+     * Safe to travel: percent vaccinated is greater than or equal to 80%
+     * Proceed with caution: percent vaccinated is greater than or equal to 40% but less than 80%
+     * Not safe to travel: percent vaccinated is lower than 40%
+     * @param percentVaccinated
+     * @return the newly assigned status based on score
+     */
     public String calculateStatusBasedOnScore(double percentVaccinated) {
         boolean safe = percentVaccinated >= 80;
         boolean caution = percentVaccinated >= 40 && percentVaccinated < 80;

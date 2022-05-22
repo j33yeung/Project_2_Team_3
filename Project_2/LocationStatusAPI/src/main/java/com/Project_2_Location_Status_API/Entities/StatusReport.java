@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+
 @Entity
 @Table(name= "StatusReport")
 @Getter
