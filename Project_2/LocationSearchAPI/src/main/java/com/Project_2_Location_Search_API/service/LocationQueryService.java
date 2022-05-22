@@ -75,7 +75,7 @@ public class LocationQueryService {
 
     public StatusReport requestStatusReportByCountry(String country){
         RestTemplate restTemplate = new RestTemplate();
-        StatusReport statusReport = restTemplate.getForObject("http://location-status-api.default.pod.cluster.local/status/"+ country, StatusReport.class);
+        StatusReport statusReport = restTemplate.getForObject("http://location-status-api:8000/status/"+ country, StatusReport.class);
         return new StatusReport(statusReport.getId(),statusReport.getScore(),statusReport.getLocation(),statusReport.getCreationDate(),statusReport.getStatus());
     }
 }
