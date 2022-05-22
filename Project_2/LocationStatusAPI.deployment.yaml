@@ -48,4 +48,3 @@ spec:
       targetPort: 8000
   selector:
     app: location-status-api
-  type: clusterIp
