@@ -41,7 +41,7 @@ kind: Service
 metadata:
   labels:
     app: webserver
-  name: webserver
+  name: search-api-service
 spec:
   ports:
     - port: 90

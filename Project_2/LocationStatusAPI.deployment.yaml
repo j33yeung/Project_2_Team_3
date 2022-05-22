@@ -35,3 +35,16 @@ spec:
               port: 8000
             initialDelaySeconds: 15
             periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webserver
+  name: status-api-service
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: location-status-api
