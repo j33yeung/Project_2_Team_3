@@ -41,7 +41,7 @@ kind: Service
 metadata:
   labels:
     app: webserver
-  name: StatusAPIServer
+  name: status-api-service
 spec:
   ports:
     - port: 8000
