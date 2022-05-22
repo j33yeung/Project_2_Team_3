@@ -1,6 +1,5 @@
 package com.Project_2_Location_Search_API.controllers;
 
-import com.Project_2_Location_Search_API.dto.MapWithStatus;
 import com.Project_2_Location_Search_API.entities.LocationQuery;
 import com.Project_2_Location_Search_API.entities.StatusReport;
 import com.Project_2_Location_Search_API.service.LocationQueryService;
@@ -8,7 +7,6 @@ import com.Project_2_Location_Search_API.service.MapService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 

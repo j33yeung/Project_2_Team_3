@@ -21,11 +21,6 @@ public class StatusController {
     @Setter(onMethod =@__({@Autowired}))
     private CovidApiService covidApiService;
 
-//    @GetMapping("{location}")
-//    public ResponseEntity getStatusByLocation(@PathVariable String location) {
-//        return ResponseEntity.ok(statusService.getStatusByLocation(location));
-//    }
-
     @PostMapping
     public ResponseEntity saveNewStatus(@RequestBody StatusReport statusReport) {
         try {

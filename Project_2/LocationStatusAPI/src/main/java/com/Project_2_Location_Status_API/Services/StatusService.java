@@ -53,8 +53,8 @@ public class StatusService {
     }
 
     public String calculateStatusBasedOnScore(double percentVaccinated) {
-        boolean safe = percentVaccinated > 80;
-        boolean caution = percentVaccinated > 40 && percentVaccinated < 80;
+        boolean safe = percentVaccinated >= 80;
+        boolean caution = percentVaccinated >= 40 && percentVaccinated < 80;
         return safe ? "Safe to travel" : caution ? "Proceed with caution" : "Not safe to travel";
     }
 }
