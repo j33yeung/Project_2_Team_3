@@ -8,9 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class MapRequestDTO {
-    private String center;
-    private String marker1;
-    private String marker2;
-    private String path;
+public class MapWithStatus {
+    private byte[] img;
+    private String status;
 }

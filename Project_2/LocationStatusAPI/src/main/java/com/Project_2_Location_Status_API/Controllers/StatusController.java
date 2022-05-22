@@ -2,7 +2,7 @@ package com.Project_2_Location_Status_API.Controllers;
 
 import com.Project_2_Location_Status_API.DTO.CovidStatsDTO;
 import com.Project_2_Location_Status_API.DTO.VaccineDataDTO;
-import com.Project_2_Location_Status_API.Entities.Status;
+import com.Project_2_Location_Status_API.Entities.StatusReport;
 import com.Project_2_Location_Status_API.Services.CovidApiService;
 import com.Project_2_Location_Status_API.Services.StatusService;
 import lombok.Setter;
@@ -21,33 +21,29 @@ public class StatusController {
     @Setter(onMethod =@__({@Autowired}))
     private CovidApiService covidApiService;
 
-    @GetMapping("{location}")
-    public ResponseEntity getStatusByLocation(@PathVariable String location) {
-        return ResponseEntity.ok(statusService.getStatusByLocation(location));
-    }
-
     @PostMapping
-    public ResponseEntity saveNewStatus(@RequestBody Status status) {
+    public ResponseEntity saveNewStatus(@RequestBody StatusReport statusReport) {
         try {
-            statusService.saveNewStatus(status);
+            statusService.saveNewStatus(statusReport);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Error creating status");
+            return ResponseEntity.internalServerError().body("Error creating statusReport");
         }
-        return ResponseEntity.ok("Successfully created new status for " + status.getLocation());
+        return ResponseEntity.ok("Successfully created new statusReport for " + statusReport.getLocation());
     }
 
-    @GetMapping("search")
-    public String getStatusBasedOnLocation(@RequestParam String country) {
+    @GetMapping("{country}")
+    public ResponseEntity getStatusBasedOnLocation(@PathVariable String country) {
 
-        Status status = new Status();
+        StatusReport statusReport = new StatusReport();
         CovidStatsDTO covidStats = covidApiService.getAllDataByCountry(country).getBody();
         VaccineDataDTO vaccineStats = covidApiService.getAllVaccineDataByCountry(country).getBody();
 
-        status.setLocation(country);
-        status.setScore(statusService.calculateScore(covidStats,vaccineStats));
-        status.setCreationDate(LocalDate.now());
-        statusService.saveNewStatus(status);
-        return  statusService.calculateStatusReport(status.getScore());
+        statusReport.setLocation(country);
+        statusReport.setScore(statusService.calculateScore(covidStats, vaccineStats));
+        statusReport.setCreationDate(LocalDate.now());
+        statusReport.setStatus(statusService.calculateStatusBasedOnScore(statusReport.getScore()));
+        statusService.saveNewStatus(statusReport);
+        return ResponseEntity.ok(statusReport);
     }
 }

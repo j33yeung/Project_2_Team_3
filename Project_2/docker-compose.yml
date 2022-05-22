@@ -5,7 +5,7 @@ services:
     build:
       context: LocationStatusAPI
       args:
-        - JAR_FILE=./target/LocationStatusAPI.Jar
+        - JAR_FILE=./target/LocationStatusAPI.jar
     image: location_status_api:latest
     container_name: LocationStatusAPI
     ports:
@@ -14,7 +14,7 @@ services:
     build:
       context: LocationSearchAPI
       args:
-        - JAR_FILE=./target/LocationSearchAPI.Jar
+        - JAR_FILE=./target/LocationSearchAPI.jar
     image: location_search_api:latest
     container_name: LocationSearchAPI
     ports:

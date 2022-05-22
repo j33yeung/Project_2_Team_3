@@ -30,7 +30,7 @@ public class LocationQueryServiceTest {
 
         when(mockLocationQueryRepository.save(locationQuery)).thenReturn(locationQuery);
         Assertions.assertDoesNotThrow(() -> {
-            locationQueryService.addSearch(locationQuery);
+            locationQueryService.saveSearch(locationQuery);
         });
     }
 
@@ -40,7 +40,7 @@ public class LocationQueryServiceTest {
                 500, 300, 50, 20, 100);
         when(mockLocationQueryRepository.save(locationQuery)).thenReturn(locationQuery);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.addSearch(locationQuery));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.saveSearch(locationQuery));
         Assertions.assertEquals("Location name can't be null", ex.getMessage(), "Wrong exception thrown when given a null location");
     }
 
@@ -50,7 +50,7 @@ public class LocationQueryServiceTest {
                 500, 300, 50, 20, 100);
         when(mockLocationQueryRepository.save(locationQuery)).thenReturn(locationQuery);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.addSearch(locationQuery));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.saveSearch(locationQuery));
         Assertions.assertEquals("Status can't be null", ex.getMessage(), "Wrong exception thrown when given a null status");
     }
 
@@ -60,7 +60,7 @@ public class LocationQueryServiceTest {
                 null, 300, 50, 20, 100);
         when(mockLocationQueryRepository.save(locationQuery)).thenReturn(locationQuery);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.addSearch(locationQuery));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.saveSearch(locationQuery));
         Assertions.assertEquals("Population can't be null", ex.getMessage(), "Wrong exception thrown when given a null population");
     }
 
@@ -70,7 +70,7 @@ public class LocationQueryServiceTest {
                 500, null, 50, 20, 100);
         when(mockLocationQueryRepository.save(locationQuery)).thenReturn(locationQuery);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.addSearch(locationQuery));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.saveSearch(locationQuery));
         Assertions.assertEquals("Vaccinated can't be null", ex.getMessage(), "Wrong exception thrown when given a null vaccination");
     }
 
@@ -80,7 +80,7 @@ public class LocationQueryServiceTest {
                 500, 300, null, 20, 100);
         when(mockLocationQueryRepository.save(locationQuery)).thenReturn(locationQuery);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.addSearch(locationQuery));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.saveSearch(locationQuery));
         Assertions.assertEquals("Total infections can't be null", ex.getMessage(), "Wrong exception thrown when given a null Total Infections");
     }
 
@@ -90,7 +90,7 @@ public class LocationQueryServiceTest {
                 500, 300, 50, null, 100);
         when(mockLocationQueryRepository.save(locationQuery)).thenReturn(locationQuery);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.addSearch(locationQuery));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.saveSearch(locationQuery));
         Assertions.assertEquals("Total deaths can't be null", ex.getMessage(), "Wrong exception thrown when given a null Total Deaths");
     }
 
@@ -100,7 +100,7 @@ public class LocationQueryServiceTest {
                 500, 300, 50, 20, null);
         when(mockLocationQueryRepository.save(locationQuery)).thenReturn(locationQuery);
 
-        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.addSearch(locationQuery));
+        NullPointerException ex = Assertions.assertThrows(NullPointerException.class, () -> locationQueryService.saveSearch(locationQuery));
         Assertions.assertEquals("Total recovered can't be null", ex.getMessage(), "Wrong exception thrown when given a null Total Recovered");
     }
 

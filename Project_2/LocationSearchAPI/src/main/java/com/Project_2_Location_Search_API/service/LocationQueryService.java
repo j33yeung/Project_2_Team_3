@@ -1,10 +1,12 @@
 package com.Project_2_Location_Search_API.service;
 
 import com.Project_2_Location_Search_API.entities.LocationQuery;
+import com.Project_2_Location_Search_API.entities.StatusReport;
 import com.Project_2_Location_Search_API.repositories.LocationQueryRepository;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ public class LocationQueryService {
 //        this.locationQueryRepository = locationQueryRepository;
 //    }
 
-    public LocationQuery addSearch(LocationQuery locationQuery) {
+    public LocationQuery saveSearch(LocationQuery locationQuery) {
         if(locationQuery.getLocationName() == null || locationQuery.getLocationName().isEmpty()) {
             throw new NullPointerException("Location name can't be null");
         } else if(locationQuery.getStatus() == null || locationQuery.getStatus().isEmpty()) {
@@ -71,4 +73,9 @@ public class LocationQueryService {
         return retList;
     }
 
+    public StatusReport requestStatusReportByCountry(String country){
+        RestTemplate restTemplate = new RestTemplate();
+        StatusReport statusReport = restTemplate.getForObject("http://localhost:8000/status/"+ country, StatusReport.class);
+        return new StatusReport(statusReport.getId(),statusReport.getScore(),statusReport.getLocation(),statusReport.getCreationDate(),statusReport.getStatus());
+    }
 }

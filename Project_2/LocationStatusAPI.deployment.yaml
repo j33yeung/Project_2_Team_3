@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: location-status-api
+  labels:
+    app: location-status-api
+    tier: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: location-status-api
+  template:
+    metadata:
+      labels:
+        app: location-status-api
+        tier: webserver
+    spec:
+      containers:
+        - name: location-status-api
+          image: alahkaih/location-status-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: SERVER_PORT
+              value: "8000"
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 15
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 15

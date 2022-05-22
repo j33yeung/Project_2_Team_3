@@ -14,10 +14,6 @@ public class CovidApiService {
     private static final String GET_COVID_API = "https://disease.sh/v3/covid-19/countries/";
     private static final String GET_COVID_VACCINE_INFO = "https://disease.sh/v3/covid-19/vaccine/coverage/countries/";
 
-
-//    @Autowired
-//    private RestTemplate covidApiRestTemplate;
-
     public ResponseEntity<CovidStatsDTO> getAllDataByCountry(String country){
 
         RestTemplate covidApiRestTemplate = new RestTemplate();
