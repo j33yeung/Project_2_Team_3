@@ -5,6 +5,8 @@ import com.Project_2_Location_Search_API.entities.StatusReport;
 import com.Project_2_Location_Search_API.repositories.LocationQueryRepository;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +18,9 @@ public class LocationQueryService {
 
     @Setter(onMethod = @__({@Autowired}))
     private LocationQueryRepository locationQueryRepository;
+
+    @Autowired
+    RestTemplate restTemplate = new RestTemplate();
 
 //    This code is now redundant but I will leave it just in case                   //
 //    public LocationQueryService(LocationQueryRepository locationQueryRepository) {
@@ -111,7 +116,6 @@ public class LocationQueryService {
      * @return new statusReport
      */
     public StatusReport requestStatusReportByCountry(String country){
-        RestTemplate restTemplate = new RestTemplate();
         StatusReport statusReport = restTemplate.getForObject("http://localhost:8000/status/"+ country, StatusReport.class);
         return new StatusReport(statusReport.getId(),statusReport.getScore(),statusReport.getLocation(),statusReport.getCreationDate(),statusReport.getStatus());
     }
