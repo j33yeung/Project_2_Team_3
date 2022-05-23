@@ -28,6 +28,19 @@ public class LocationQueryService {
 //        this.locationQueryRepository = locationQueryRepository;
 //    }
 
+    /**
+     * Save location query search
+     * @throws null-Pointer-Exception under certain conditions:
+     *      -null location
+     *      -null status
+     *      -null population
+     *      -null vaccinated population
+     *      -null infected population
+     *      -null total deaths
+     *      -null total recovered
+     * @param locationQuery
+     * @return location query
+     */
     public LocationQuery saveSearch(LocationQuery locationQuery) {
         if(locationQuery.getLocationName() == null || locationQuery.getLocationName().isEmpty()) {
             throw new NullPointerException("Location name can't be null");
@@ -48,8 +61,27 @@ public class LocationQueryService {
         }
     }
 
+    /**
+     * Get all searches
+     * @return all searches from locationQuery Repository
+     */
     public List<LocationQuery> getAllSearches() { return locationQueryRepository.findAll(); }
 
+    /**
+     * Get all location by filter from locationQuery Repository
+     *  Filters are:
+     *      -location name
+     *      -status
+     *      -population
+     *      -vaccinated
+     *      -total infections
+     *      -total deaths
+     *      -total recovered
+     * @param filter
+     * @param filterStr
+     * @param minNum
+     * @return retList
+     */
     public List<LocationQuery> getAllByFilter(String filter, String filterStr, int minNum) {
         List<LocationQuery> retList = new ArrayList<>();
         switch (filter.toLowerCase()) {
@@ -78,6 +110,11 @@ public class LocationQueryService {
         return retList;
     }
 
+    /**
+     * Request statusReport by country
+     * @param country
+     * @return new statusReport
+     */
     public StatusReport requestStatusReportByCountry(String country){
         StatusReport statusReport = restTemplate.getForObject("http://localhost:8000/status/"+ country, StatusReport.class);
         return new StatusReport(statusReport.getId(),statusReport.getScore(),statusReport.getLocation(),statusReport.getCreationDate(),statusReport.getStatus());

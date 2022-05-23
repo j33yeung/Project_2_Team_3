@@ -21,6 +21,12 @@ public class StatusController {
     @Setter(onMethod =@__({@Autowired}))
     private CovidApiService covidApiService;
 
+    /**
+     * Controller to save new status
+     * @param statusReport
+     * @return if status is not saved, receives internal service error and message 'Error creating statusReport'
+     * @return if status is saved, receives successfully created new statusReport message
+     */
     @PostMapping
     public ResponseEntity saveNewStatus(@RequestBody StatusReport statusReport) {
         try {
@@ -32,6 +38,11 @@ public class StatusController {
         return ResponseEntity.ok("Successfully created new statusReport for " + statusReport.getLocation());
     }
 
+    /**
+     * Controller to get status based on location
+     * @param country
+     * @return statusReport
+     */
     @GetMapping("{country}")
     public ResponseEntity getStatusBasedOnLocation(@PathVariable String country) {
 
