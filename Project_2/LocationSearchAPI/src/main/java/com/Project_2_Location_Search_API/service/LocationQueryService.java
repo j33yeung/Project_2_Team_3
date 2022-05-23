@@ -116,7 +116,7 @@ public class LocationQueryService {
      * @return new statusReport
      */
     public StatusReport requestStatusReportByCountry(String country){
-        StatusReport statusReport = restTemplate.getForObject("http://localhost:8000/status/"+ country, StatusReport.class);
+        StatusReport statusReport = restTemplate.getForObject("http://status-api-service:8000/status/"+ country, StatusReport.class);
         return new StatusReport(statusReport.getId(),statusReport.getScore(),statusReport.getLocation(),statusReport.getCreationDate(),statusReport.getStatus());
     }
 }
