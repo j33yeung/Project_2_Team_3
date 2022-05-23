@@ -35,3 +35,17 @@ spec:
               port: 7000
             initialDelaySeconds: 15
             periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webserver
+  name: search-api-service
+spec:
+  ports:
+    - port: 90
+      targetPort: 7000
+  selector:
+    app: location-search-api
+  type: LoadBalancer

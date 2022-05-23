@@ -41,10 +41,10 @@ kind: Service
 metadata:
   labels:
     app: webserver
-  name: webserver
+  name: status-api-service
 spec:
   ports:
-    - port: 90
+    - port: 8000
+      targetPort: 8000
   selector:
     app: location-status-api
-  type: NodePort
