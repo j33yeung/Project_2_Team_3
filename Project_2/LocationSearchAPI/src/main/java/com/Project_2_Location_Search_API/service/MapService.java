@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -21,6 +23,8 @@ public class MapService {
     @Autowired
     RestTemplate restTemplate = new RestTemplate();
 
+    final Logger logger = LoggerFactory.getLogger(MapService.class);
+
     private final String key = "pk.4e3f27d87b71d3a12326e0641a621a8d";
     private final String baseURL = "https://api.locationiq.com/v1";
     private final String mapBaseURL = "https://maps.locationiq.com/v3";
@@ -37,6 +41,7 @@ public class MapService {
         headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
 
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+        logger.debug("Request fetched");
         return restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
     }
 
@@ -56,8 +61,10 @@ public class MapService {
         try {
             restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
             ResponseEntity<byte[]> response = restTemplate.exchange(url,HttpMethod.POST,entity, byte[].class);
+            logger.debug("Image fetched");
             return response;
         } catch( HttpServerErrorException hse ){
+            logger.debug("Server error, cannot fetch image");
             throw hse;
         }
     }
@@ -74,6 +81,7 @@ public class MapService {
      * @return map
      */
     public ResponseEntity getByStructured(String street, String city, String county, String state, String country, String postalcode, String format) {
+        logger.debug("Getting map by structured");
         String url = String.format("%s/search.php?key=%s&street=%s&city=%s&county=%s&state=%s&country=%s&postalcode=%s&format=%s", baseURL, key, street, city, county, state, country, postalcode, format);
         return fetchRequest(url);
     }
@@ -86,6 +94,7 @@ public class MapService {
      * @return map
      */
     public ResponseEntity getStateInfo(String state, String format, String countryCodes) {
+        logger.debug("Getting map by state info");
         String[] listOfUsStates = new String[] {"alabama", "alaska", "arizona", "arkansas", "california", "colorado", "connecticut", "delaware", "florida", "georgia", "hawaii", "idaho", "illinois", "indiana", "iowa", "kansas", "kentucky", "louisiana", "maine", "maryland", "massachusetts", "michigan", "minnesota", "mississippi", "missouri", "montana", "nebraska", "nevada", "new hampshire", "new jersey", "new mexico", "new york", "north carolina", "ohio", "oklahoma", "oregon", "pennsylvania", "rhode island", "south carolina", "south dakota", "tennessee", "texas", "utah", "vermont", "virginia", "washington", "west virginia", "wisconsin", "wyoming"};
         if (!Arrays.asList(listOfUsStates).contains(state.toLowerCase())) throw new UnsupportedOperationException("US states only");
         String url = String.format("%s/autocomplete.php?key=%s&q=%s&format=%s&countryCodes=%s", baseURL, key, state, format, countryCodes);
@@ -99,6 +108,7 @@ public class MapService {
      * @return map
      */
     public ResponseEntity getLocationInfo(String country, String format){
+        logger.debug("Getting map by location info");
         String url = String.format("%s/autocomplete.php?key=%s&q=%s&format=%s", baseURL, key, country, format);
         return fetchRequest(url);
     }
@@ -110,6 +120,7 @@ public class MapService {
      * @return map
      */
     public ResponseEntity getByQuery(String q, String format) {
+        logger.debug("Getting map by query");
         String url = String.format("%s/autocomplete.php?key=%s&q=%s&format=%s", baseURL, key, q, format);
         return fetchRequest(url);
     }
@@ -120,6 +131,7 @@ public class MapService {
      * @return map
      */
     public ResponseEntity getGeneral(String q) {
+        logger.debug("Getting map by general");
         String url = String.format("%s/autocomplete.php?key=%s&q=%s", baseURL, key, q);
         return fetchRequest(url);
     }
@@ -131,10 +143,12 @@ public class MapService {
      * @return map image
      */
     public ResponseEntity getLocationMap(String country, String format) {
+        logger.debug("Getting map by structured");
         ResponseEntity response = getLocationInfo(country, format);
         try {
             JSONArray jsonArray = (JSONArray) new JSONParser().parse(response.getBody().toString());
             Object first = jsonArray.get(0);
+            logger.debug("Parsing only first JSONObject");
             String latitude = "";
             String longitude = "";
             String[] jsonParts = first.toString().split(",");
@@ -145,6 +159,7 @@ public class MapService {
             }
             latitude = latitude.replaceAll("[^a-zA-Z0-9.-]", "");
             longitude = longitude.replaceAll("[^a-zA-Z0-9.-]", "");
+            logger.debug("Latitude: {}  and Longitude: {}", latitude, longitude);
             String center = String.format("%s,%s", latitude, longitude);
             String marker = String.format("icon:large-red-cutout|%s", center);
             String url = String.format("%s/staticmap?key=%s&center=%s&zoom=4&size=480x480&markers=%s", mapBaseURL, key, center, marker);

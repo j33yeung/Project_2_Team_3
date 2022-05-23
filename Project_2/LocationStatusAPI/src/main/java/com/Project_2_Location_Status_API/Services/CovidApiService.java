@@ -2,6 +2,8 @@ package com.Project_2_Location_Status_API.Services;
 
 import com.Project_2_Location_Status_API.DTO.CovidStatsDTO;
 import com.Project_2_Location_Status_API.DTO.VaccineDataDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,6 +13,7 @@ import java.util.Arrays;
 @Service
 public class CovidApiService {
 
+    final Logger logger = LoggerFactory.getLogger(CovidApiService.class);
 
     private static final String GET_COVID_API = "https://disease.sh/v3/covid-19/countries/";
     private static final String GET_COVID_VACCINE_INFO = "https://disease.sh/v3/covid-19/vaccine/coverage/countries/";
@@ -30,7 +33,7 @@ public class CovidApiService {
 
         HttpEntity<String> entity = new HttpEntity<>("parameters",headers);
 
-
+        logger.debug("Covid data request fetched");
         return covidApiRestTemplate.exchange(GET_COVID_API + country, HttpMethod.GET,entity, CovidStatsDTO.class);
     }
 
@@ -50,6 +53,7 @@ public class CovidApiService {
 
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
+        logger.debug("Vaccine data request fetched");
         return covidApiRestTemplate.exchange(GET_COVID_VACCINE_INFO + country + "?lastdays=1&fullData=false", HttpMethod.GET, entity, VaccineDataDTO.class);
 
     }

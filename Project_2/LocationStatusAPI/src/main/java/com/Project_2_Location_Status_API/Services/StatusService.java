@@ -5,6 +5,8 @@ import com.Project_2_Location_Status_API.DTO.VaccineDataDTO;
 import com.Project_2_Location_Status_API.Entities.StatusReport;
 import com.Project_2_Location_Status_API.Repositories.StatusRepository;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class StatusService {
     @Setter(onMethod = @__({@Autowired}))
     private StatusRepository statusRepository;
 
+    final Logger logger = LoggerFactory.getLogger(StatusService.class);
+
     /**
      * Service method to get status by location
      * @throws null pointer exception if location is not found
@@ -25,8 +29,10 @@ public class StatusService {
     public StatusReport getStatusByLocation(String location) {
         StatusReport op = statusRepository.findByLocation(location);
         if (op != null) {
+            logger.debug("Status report retrieved");
             return op;
         } else {
+            logger.debug("Status report is null and can't be found");
             throw new NullPointerException(location + " could not be found");
         }
     }
@@ -43,12 +49,16 @@ public class StatusService {
 
     public void saveNewStatus(StatusReport statusReport) {
         if (statusReport.getLocation() == null || statusReport.getLocation().isEmpty()) {
+            logger.debug("Location is null or empty");
             throw new NullPointerException("Can't create a statusReport without a location");
         } else if (statusReport.getScore() == 0 || statusReport.getScore() < 0) {
+            logger.debug(Double.toString(statusReport.getScore()));
             throw new NullPointerException("Can't create a statusReport with a null or negative score");
         } else if (statusReport.getCreationDate() == null) {
+            logger.debug("Creation date is null");
             throw new NullPointerException("Can't create a statusReport with a null creation date");
         } else if (statusReport.getCreationDate().isAfter(LocalDate.now())) {
+            logger.debug(statusReport.getCreationDate().toString());
             throw new NullPointerException("Can't create a statusReport with a date in the future");
         } else {
             statusRepository.save(statusReport);
@@ -73,6 +83,7 @@ public class StatusService {
           therefore, popVaccinated returns an approximate number of people vaccinated(with double dose) in a country
          */
         double popVaccinated = vaccineStats.getTimeline().fields().next().getValue().asDouble() /2;
+        logger.debug("Score: {}", popVaccinated/totalPopulation * 100);
         return  (popVaccinated/totalPopulation) * 100;
     }
 
@@ -88,6 +99,7 @@ public class StatusService {
     public String calculateStatusBasedOnScore(double percentVaccinated) {
         boolean safe = percentVaccinated >= 80;
         boolean caution = percentVaccinated >= 40 && percentVaccinated < 80;
+        logger.debug("Safe: {}    and Caution: {}", safe, caution);
         return safe ? "Safe to travel" : caution ? "Proceed with caution" : "Not safe to travel";
     }
 }
