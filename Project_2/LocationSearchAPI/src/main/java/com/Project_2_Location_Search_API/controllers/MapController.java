@@ -16,11 +16,29 @@ public class MapController {
     @Setter(onMethod =@__({@Autowired}))
     private MapService mapService;
 
+    /**
+     * Structured Query Request
+     * @param street
+     * @param city
+     * @param county
+     * @param state
+     * @param country
+     * @param postalCode
+     * @param format
+     * @return structured response
+     */
     @GetMapping("/structured")
     public ResponseEntity structuredQuery(@RequestParam String street, @RequestParam String city, @RequestParam String county, @RequestParam String state, @RequestParam String country, @RequestParam String postalCode, @RequestParam String format) {
         return ResponseEntity.ok(mapService.getByStructured(street, city, county, state, country, postalCode, format).getBody());
     }
 
+    /**
+     * Get map with US state information
+     * @param state
+     * @param format
+     * @param countrycodes
+     * @return response entity, jsonArray
+     */
     @GetMapping("/state-info")
     public ResponseEntity getStateInfo(@RequestParam String state, @RequestParam String format, @RequestParam String countrycodes) {
         Object places = mapService.getStateInfo(state, format, countrycodes).getBody();
@@ -33,11 +51,21 @@ public class MapController {
         return null;
     }
 
+    /**
+     * General request to query by landmark
+     * @param q
+     * @return general request
+     */
     @GetMapping("/landmark")
     public ResponseEntity general(@RequestParam String q) {
         return ResponseEntity.ok(mapService.getGeneral(q).getBody());
     }
 
+    /**
+     * Show map based on queried location
+     * @param location
+     * @return location map, json
+     */
     @GetMapping("{location}")
     public ResponseEntity showLocationMap(@PathVariable String location){
         return mapService.getLocationMap(location,"json");

@@ -39,7 +39,7 @@ class CovidApiServiceTest {
 
         VaccineDataDTO vaccineDataDTO = new VaccineDataDTO("Canada", timelineNode);
 
-        ResponseEntity<VaccineDataDTO> responseEntity = new ResponseEntity<VaccineDataDTO>(vaccineDataDTO, HttpStatus.OK);
+        ResponseEntity<VaccineDataDTO> responseEntity = new ResponseEntity<>(vaccineDataDTO, HttpStatus.OK);
         when(restTemplate.exchange(
                 ArgumentMatchers.anyString(),
                 ArgumentMatchers.any(HttpMethod.class),

@@ -11,9 +11,15 @@ import java.util.Arrays;
 @Service
 public class CovidApiService {
 
+
     private static final String GET_COVID_API = "https://disease.sh/v3/covid-19/countries/";
     private static final String GET_COVID_VACCINE_INFO = "https://disease.sh/v3/covid-19/vaccine/coverage/countries/";
 
+    /**
+     * Get covid data from 3rd part API queried by country
+     * @param country
+     * @return covid data of the selected country from 3rd party API
+     */
     public ResponseEntity<CovidStatsDTO> getAllDataByCountry(String country){
 
         RestTemplate covidApiRestTemplate = new RestTemplate();
@@ -28,6 +34,11 @@ public class CovidApiService {
         return covidApiRestTemplate.exchange(GET_COVID_API + country, HttpMethod.GET,entity, CovidStatsDTO.class);
     }
 
+    /**
+     * Get vaccine data from 3rd party API queried by country, retrieving data for current and previous day
+     * @param country
+     * @return vaccine related data of the selected country from 3rd party API
+     */
 
     public ResponseEntity<VaccineDataDTO> getAllVaccineDataByCountry(String country) {
 

@@ -21,6 +21,11 @@ public class LocationQueryController {
     @Setter(onMethod =@__({@Autowired}))
     private MapService mapService;
 
+    /**
+     * Add Location Query
+     * @throws 'ResponseStatusException', error when adding search object
+     * @param locationQuery
+     */
     @PostMapping("/")
     public void addLocationQuery(@RequestBody LocationQuery locationQuery) {
         LocationQuery locationQueryAdded = locationQueryService.saveSearch(locationQuery);
@@ -29,17 +34,33 @@ public class LocationQueryController {
         }
     }
 
+    /**
+     * Get all location queries
+     * @return all searches
+     */
     @GetMapping("/")
     public List<LocationQuery> getAllLocationQueries() {
         return locationQueryService.getAllSearches();
     }
 
+    /**
+     * get all queries by filter
+     * @param filter
+     * @param filterStr
+     * @param minNum
+     * @return retList
+     */
     @GetMapping("")
     public List<LocationQuery> getAllByFilter(@RequestParam String filter, @RequestParam String filterStr, @RequestParam int minNum) {
         List<LocationQuery> retList = locationQueryService.getAllByFilter(filter, filterStr, minNum);
         return retList;
     }
 
+    /**
+     * Get map of country
+     * @param country
+     * @return statusReport
+     */
     @GetMapping("{country}")
     public String getCountryMap(@PathVariable String country){
         StatusReport statusReport =locationQueryService.requestStatusReportByCountry(country);
