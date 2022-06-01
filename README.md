@@ -14,3 +14,5 @@ API 2:
       - parse google map location info into something API 1 can use
     - use API 1 to get that location's score
     - Output location and all relevant info
+
+Extra
